@@ -1,13 +1,16 @@
+"use client"
+
 import React from 'react';
-import { Button , Typography , Toolbar , AppBar } from '@mui/material';
-import Link from 'next/link'
+import { Button, Typography, Toolbar, AppBar } from '@mui/material';
+import Link from 'next/link';
 import { MainHeaderBackGround } from './main-header-background';
-
-// import Image from 'next/image';
-// import ImageLogo from "./logo.png";
-
+import { usePathname } from "next/navigation";
 
 const MainHeader: React.FC = () => {
+   const path = usePathname();
+  
+   const isMealsPage = path.startsWith("/meals");
+   const isCommunityPage = path === "/community";
    return (
       <>
       <MainHeaderBackGround />
@@ -18,17 +21,17 @@ const MainHeader: React.FC = () => {
             </Typography>
             <div> 
                <Link href="/" passHref>
-                  <Button  variant="text" color="inherit" sx={{ color: 'white' }}>
+                  <Button  variant="text" color="inherit" sx={{ color: path === '/' ? 'yellow' : 'white' }}>
                      Home
                   </Button>
                </Link>
                <Link href="/meals" passHref>
-                  <Button  variant="text" color="inherit" sx={{ color: 'white' }}>
+                  <Button  variant="text" color="inherit" sx={{ color: isMealsPage ? 'yellow' : 'white' }}>
                      Meals 
                   </Button>
                </Link>
                <Link href="/community" passHref>
-                  <Button  variant="text" color="inherit" sx={{ color: 'white' }}>
+                  <Button  variant="text" color="inherit" sx={{ color: isCommunityPage ? 'yellow' : 'white' }}>
                       Community 
                   </Button>
                </Link>

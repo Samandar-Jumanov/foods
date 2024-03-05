@@ -15,6 +15,7 @@ export default function Home() {
         height :"100vh"
       }}
     >
+      <SlideShow />
       <Typography variant="h3" color="primary" gutterBottom 
        sx={{  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"  , textAlign : "center"}}>
         Welcome to NextLevelFood
