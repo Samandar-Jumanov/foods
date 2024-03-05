@@ -1,30 +1,47 @@
 import Link from "next/link";
 import MealsGrid from "../../components/meals/meals-grid";
-import { Typography, Button, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
+import { getFoods } from '../../lib/getFoods';
+import { IMeal } from "../../types/meals";
 
+const Meals = async () => {
+  const meals: IMeal[] = await getFoods();
+  console.log({ meals });
 
-const mealsData = [
-    { Id :"1" , title : "meal" , summary : "Summary" ,slug :"Slug" , image  :"No image " , creator:"Created "}
-]
-const Meals = () => {
   return (
     <Box sx={{
-      '& > :not(style)': { m: 1 },
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      p: 3,
+      borderRadius: 3,
+      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+      backgroundColor: '#f5e0d3', // A soft terracotta/beige color
+      color: "black",
+      margin: '2rem auto',
+      maxWidth: 'md',
+      gap: 2, 
       textAlign: 'center',
-      p: 2,
-      backgroundColor: '#f9f9f9', 
-      borderRadius: 2,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)', 
-      margin: '2rem auto', 
-      maxWidth: 'md', 
+      '& h1': {
+        fontWeight: 700,
+        color: '#1976d2', 
+        marginBottom: 2,
+        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+      },
+      '& p': {
+        maxWidth: '80%',
+        marginBottom: { xs: 2, sm: 3 }, 
+        fontSize: { xs: '0.875rem', sm: '1rem' }, 
+      },
     }}>
-      <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600, color: '#333' }}>
+      <Typography variant="h4" component="h1" gutterBottom>
         Discover Your Next Favorite Meal
       </Typography>
-      <Typography variant="h6" component="p" color="textSecondary" paragraph>
+      <Typography variant="body1" color="textSecondary" paragraph>
         Explore a wide variety of dishes and find new flavors to add to your culinary adventures.
       </Typography>
-      {/* <MealsGrid meals={mealsData}/> */}
+      <MealsGrid meals={meals} />
     </Box>
   );
 };
