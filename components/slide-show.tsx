@@ -24,17 +24,18 @@ import Image from "next/image";
 
 
 export const SlideShow = () => {
-    const [currIndex , setCurrIndex  ] = useState(null);
-    
-    useEffect(() => {
-        const interVal = setInterval(() =>{
-               setCurrIndex(( prevIdx : number ) =>{
-                       prevIdx < slideImages.length -1 ? prevIdx++ : 0 
-               })
-        } , 5000);
+    const [currIndex, setCurrIndex] = useState(0);
 
-        return ( clearInterval(interVal))
-    });
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrIndex((prevIdx: number) => {
+                return prevIdx < slideImages.length - 1 ? prevIdx + 1 : 0;
+            });
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+    
 
     return (
           <Box>  

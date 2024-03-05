@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Typography, Box, Button } from "@mui/material";
+import  { SlideShow } from "../components/slide-show";
+
 
 export default function Home() {
   return (
