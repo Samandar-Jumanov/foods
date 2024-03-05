@@ -3,11 +3,16 @@ import MealsGrid from "../../components/meals/meals-grid";
 import { Typography, Box } from '@mui/material';
 import { getFoods } from '../../lib/getFoods';
 import { IMeal } from "../../types/meals";
+import { Suspense } from "react";
+import LoadingPage from './loading-out'
+
+ async function GotMeals () {
+  const meals: IMeal[] = await getFoods();
+  return  <MealsGrid meals={meals} />
+}
+
 
 const Meals = async () => {
-  const meals: IMeal[] = await getFoods();
-  console.log({ meals });
-
   return (
     <Box sx={{
       display: 'flex',
@@ -17,7 +22,7 @@ const Meals = async () => {
       p: 3,
       borderRadius: 3,
       boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-      backgroundColor: '#f5e0d3', // A soft terracotta/beige color
+      backgroundColor: '#f5e0d3', 
       color: "black",
       margin: '2rem auto',
       maxWidth: 'md',
@@ -41,7 +46,9 @@ const Meals = async () => {
       <Typography variant="body1" color="textSecondary" paragraph>
         Explore a wide variety of dishes and find new flavors to add to your culinary adventures.
       </Typography>
-      <MealsGrid meals={meals} />
+       <Suspense fallback={<LoadingPage/>}> 
+          <GotMeals/>
+        </Suspense>
     </Box>
   );
 };
