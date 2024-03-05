@@ -6,9 +6,12 @@ export const getFoods = async ( ) =>{
 }
 
 export const getMealBySlug =  async ( slugName : string ) =>{
-          
+            console.log(slugName);
+
           const meal = await  prisma.foods.findUnique({
-               where : { slug : slugName}
+              where : {
+                   slug : slugName as string 
+              }
           });
 
            console.log(meal);
