@@ -2,20 +2,17 @@ import { IMeal } from "../../types/meals"
 import MealsItem from "./meals-items"
 
 
-const AllMeals = ( meals   :  IMeal[]) =>{
+const MealsGrid = ( meals  : any  ) =>{
         return (
                    <> 
-                     {meals.map((meal) => (
+                     {meals?.map((meal : any ) => (
                          <MealsItem
-                             id={meal.id}
-                             slug={meal.slug}
-                             title={meal.title}
-                             image={meal.image}
-                             creator={meal.creator}
-                             summary={meal.summary}
+                          { ...meal}
                          />
                      ) )}
 
                     </>   
         )
 }
+
+export default MealsGrid;
