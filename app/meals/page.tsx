@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MealsGrid from "../../components/meals/meals-grid";
 import { Typography, Box } from '@mui/material';
-import { getFoods } from '../../lib/getFoods';
+import { getFoods } from '../../lib/meals';
 import { IMeal } from "../../types/meals";
 import { Suspense } from "react";
 import LoadingPage from './loading-out'
