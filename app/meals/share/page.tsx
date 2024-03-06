@@ -1,51 +1,77 @@
-import React from 'react';
-import { Box, TextField, Button, Typography } from '@mui/material';
+"use client"
+
+import React , { useEffect} from 'react';
 import ImagePicker from '../../../components/image-picker';
+import { shareMeal } from "../../../lib/actions";
+import { useFormState  } from "react-dom"
 
 const ShareMeals = () => {
-  return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+  const [ state , action ] = useFormState(shareMeal , { message : null })
+
+
+  useEffect(() =>{
+      if(state.message === "succes"){
+               state.message = null
+      }
+    } , [state]);
+
+
+  return ( 
+    <div
+      style={{
+        margin: '1rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
       }}
-      noValidate
-      autoComplete="off"
     >
-      <Typography variant="h4" gutterBottom>
-        Share Your Meal
-      </Typography>
-      <TextField
-        required
-        id="title"
-        name="title"
-        label="Title"
-        variant="outlined"
-      />
-      <TextField
-        id="summary"
-        name="summary"
-        label="Summary"
-        multiline
-        rows={4}
-        variant="outlined"
-      />
-      <TextField
-        required
-        id="creator"
-        name="creator"
-        label="Creator"
-        variant="outlined"
-      />
-      <ImagePicker name="mealImage" labelVal="Upload Image" />
-      <Button variant="contained" color="primary" type="submit" sx={{ mt: 2 }}>
-        Submit
-      </Button>
-    </Box>
+      <h4 style={{ marginBottom: '1rem' }}> {
+        
+        state.message ? state.message : "Share your meals with the world!"
+      }
+      
+      </h4>
+      <form 
+        action={action} 
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: 'calc(25ch + 2rem)',
+          gap: '1rem',
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <input
+          required
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          style={{ padding: '10px' }}
+        />
+        <textarea
+          id="summary"
+          name="summary"
+          placeholder="Summary"
+          rows={4}
+          style={{ padding: '10px' }}
+        />
+        <input
+          required
+          type="text"
+          id="creator"
+          name="creator"
+          placeholder="Creator"
+          style={{ padding: '10px' }}
+        />
+        <ImagePicker name="mealImage" labelVal="Upload Image" />
+        <button type="submit" style={{ padding: '10px', backgroundColor: 'blue', color: 'white', border: 'none', cursor: 'pointer' }}>
+            Share meal
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -30,7 +30,7 @@ async function MealDetails({ params  }: any ) {
       </Grid>
       <Paper elevation={3} sx={{ my: 4, p: 2 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-          <Image src={meal?.image || defautImage.src} alt={meal?.title || "Default image"} width={500} height={300} style={{ borderRadius: '8px' }} />
+          <Image src={`/${meal?.image}` || defautImage.src} alt={meal?.title || "Default image"} width={500} height={300} style={{ borderRadius: '8px' }} />
         </Box>
         <Typography variant="h3" gutterBottom align="center">
           {meal?.title}

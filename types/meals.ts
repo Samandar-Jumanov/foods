@@ -1,10 +1,16 @@
 export interface IMeal {
-    id: string; 
+    id ? : string; 
     slug: string; 
     title: string;
     summary: string;
     creator: string; 
-    image: string
+    image: any
 
 }
 
+
+
+
+export type IState = {
+     message : string | null;
+}
