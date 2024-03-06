@@ -1,9 +1,12 @@
+"use client"
 import Link from "next/link";
 import { Typography, Box, Button } from "@mui/material";
 import  { SlideShow } from "../components/slide-show";
-
+import { useSession } from "next-auth/react"
 
 export default function Home() {
+  const  { data : session , loading } = useSession();
+
   return (
     <Box
       sx={{
@@ -23,7 +26,10 @@ export default function Home() {
       <Typography variant="body1" color="primary" gutterBottom  sx={{  textAlign: "center" }}>
         Discover amazing meals and connect with a vibrant community of food enthusiasts.
       </Typography>
-      <Link href="/meals" passHref>
+
+        { session &&  !loading ?  (  <> 
+                
+          <Link href="/meals" passHref>
         <Button variant="contained" color="primary" sx={{ marginBottom: "1rem" }}>
           Explore Meals
         </Button>
@@ -33,6 +39,13 @@ export default function Home() {
           Join the Community
         </Button>
       </Link>
+         </>
+         ) : 
+          <>
+           <Button variant="contained" color="info" href="/create-account">  Create an account </Button>
+          </> 
+          }
+
     </Box>
   );
 }

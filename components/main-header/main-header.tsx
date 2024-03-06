@@ -3,11 +3,11 @@ import { Button, Typography, Toolbar, AppBar } from '@mui/material';
 import Link from 'next/link';
 import { MainHeaderBackGround } from './main-header-background';
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useSession  , signIn } from "next-auth/react";
 
 const MainHeader: React.FC = () => {
     const path = usePathname();
-    const { data: session } = useSession();
+    const { data: session , loading} = useSession();
 
     const isMealsPage = path.startsWith("/meals");
     const isCommunityPage = path === "/community";
@@ -15,7 +15,9 @@ const MainHeader: React.FC = () => {
     return (
         <>
             <MainHeaderBackGround />
-            <AppBar position="static" sx={{ backgroundColor: 'black', boxShadow: 'none' }}>
+            <AppBar position="fixed" 
+              sx={{ backgroundColor: 'black', boxShadow: 'none', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+           >
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Link href="/" passHref>
@@ -28,7 +30,7 @@ const MainHeader: React.FC = () => {
                                 Home
                             </Button>
                         </Link>
-                        {session ? (
+                        {session || loading  ? (
                             <>
                                 <Link href="/meals" passHref>
                                     <Button variant="text" color="inherit" sx={{ color: isMealsPage ? 'yellow' : 'white' }}>
@@ -40,13 +42,15 @@ const MainHeader: React.FC = () => {
                                         Community
                                     </Button>
                                 </Link>
+                                    <Button variant="text" color="error" >
+                                        Log out 
+                                    </Button>
                             </>
                         ) : (
-                            <Link href="/create-account" passHref>
-                                <Button variant="contained" color="primary">
-                                    Create account
+                                <Button  onClick={() => signIn()}
+                                variant="contained" color="primary">
+                                    Sign in
                                 </Button>
-                            </Link>
                         )}
                     </div>
                 </Toolbar>

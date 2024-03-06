@@ -2,6 +2,7 @@
 
 import  MainHeader  from "../components/main-header/main-header";
 import { SessionProvider } from "next-auth/react";
+import './globals.css'
 
 export default function RootLayout({
   children,
@@ -11,7 +12,7 @@ export default function RootLayout({
     <html>
       <body>
         <SessionProvider session={session}>
-          <MainHeader />
+        <MainHeader />
           {children}
         </SessionProvider>
       </body>

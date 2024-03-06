@@ -1,55 +1,56 @@
+"use client"
+
+import React, { Suspense } from 'react';
 import Link from "next/link";
 import MealsGrid from "../../components/meals/meals-grid";
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Container, useTheme } from '@mui/material';
 import { getFoods } from '../../lib/meals';
 import { IMeal } from "../../types/meals";
-import { Suspense } from "react";
-import LoadingPage from './loading-out'
+import LoadingPage from './loading-out';
 
- async function GotMeals () {
+const GotMeals = async () => {
   const meals: IMeal[] = await getFoods();
-  return  <MealsGrid meals={meals} />
+  return <MealsGrid meals={meals} />
 }
 
+const Meals = () => {
+  const theme = useTheme();
 
-const Meals = async () => {
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      p: 3,
-      borderRadius: 3,
-      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-      backgroundColor: '#f5e0d3', 
-      color: "black",
-      margin: '2rem auto',
-      maxWidth: 'md',
-      gap: 2, 
-      textAlign: 'center',
-      '& h1': {
-        fontWeight: 700,
-        color: '#1976d2', 
-        marginBottom: 2,
-        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-      },
-      '& p': {
-        maxWidth: '80%',
-        marginBottom: { xs: 2, sm: 3 }, 
-        fontSize: { xs: '0.875rem', sm: '1rem' }, 
-      },
-    }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Discover Your Next Favorite Meal
-      </Typography>
-      <Typography variant="body1" color="textSecondary" paragraph>
-        Explore a wide variety of dishes and find new flavors to add to your culinary adventures.
-      </Typography>
-       <Suspense fallback={<LoadingPage/>}> 
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 3,
+        borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[3],
+        color: theme.palette.text.primary,
+        width: '100%', 
+        gap: 2,
+        textAlign: 'center',
+      }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{
+          fontWeight: 700,
+          color: theme.palette.primary.main,
+          marginBottom: 2,
+          fontSize: { xs: '1.75rem', sm: '2.125rem', md: '2.5rem', lg: '3rem' },
+        }}>
+          Discover Your Next Favorite Meal
+        </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph sx={{
+          maxWidth: '80%',
+          margin: 'auto',
+          fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
+        }}>
+          Explore a wide variety of dishes and find new flavors to add to your culinary adventures.
+        </Typography>
+        <Suspense fallback={<LoadingPage/>}>
           <GotMeals/>
         </Suspense>
-    </Box>
+      </Box>
+    </Container>
   );
 };
 
