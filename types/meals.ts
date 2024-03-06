@@ -14,3 +14,8 @@ export interface IMeal {
 export type IState = {
      message : string | null;
 }
+
+export type IUserBody = {
+       email : string;
+       password : string;
+}

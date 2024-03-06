@@ -1,20 +1,22 @@
-import './globals.css';
+"use client"
+
 import  MainHeader  from "../components/main-header/main-header";
+import { SessionProvider } from "next-auth/react";
 
-
-export const metadata = {
-  title: 'NextLevel Food',
-  description: 'Delicious meals, shared by a food-loving community.',
-};
-
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+  params: { session, ...params},
+}) {
   return (
-    <html lang="en">
+    <html>
       <body>
-       
-        <MainHeader/>
-        {children}
+        <SessionProvider session={session}>
+          <MainHeader />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
 }
+
+
